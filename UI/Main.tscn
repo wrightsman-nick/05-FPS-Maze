@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://UI/Main.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Theme.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Fonts/excluded-font/Excluded-z8XrX.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/Fonts/edge-of-the-galaxy-font/EdgeOfTheGalaxyRegular-OVEa6.otf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/Fonts/edge-of-the-galaxy-font/EdgeOfTheGalaxyPoster-3zRAp.otf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 250
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 4 )
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.207843, 0.407843, 0.87451, 0.705882 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_top = -1.12247
+margin_right = 1024.0
+margin_bottom = 298.878
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "MAZE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="."]
+margin_left = 32.6747
+margin_top = 309.011
+margin_right = 536.675
+margin_bottom = 423.011
+custom_fonts/font = SubResource( 2 )
+text = "ENTER THE MAZE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 769.742
+margin_top = 517.867
+margin_right = 997.742
+margin_bottom = 576.867
+custom_fonts/font = SubResource( 3 )
+text = "Chicken Out"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

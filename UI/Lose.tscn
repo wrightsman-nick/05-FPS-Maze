@@ -1,0 +1,61 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/Main.gd" type="Script" id=1]
+[ext_resource path="res://Assets/ded.wav" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Fonts/excluded-font/Excluded-z8XrX.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 150
+outline_size = 12
+outline_color = Color( 0.788235, 0.2, 0.2, 1 )
+extra_spacing_char = 19
+font_data = ExtResource( 3 )
+
+[node name="Lose" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0.305882, 0.0156863, 0.0156863, 0.690196 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_top = -1.49829
+margin_right = 1024.0
+margin_bottom = 298.502
+custom_fonts/font = SubResource( 1 )
+text = "YOU DIED"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Play" type="Button" parent="."]
+margin_left = 467.0
+margin_top = 250.0
+margin_right = 567.0
+margin_bottom = 290.0
+text = "Play again?"
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 467.0
+margin_top = 300.0
+margin_right = 567.0
+margin_bottom = 340.0
+text = "Quit"
+
+[node name="ded" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = -13.126
+autoplay = true
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]

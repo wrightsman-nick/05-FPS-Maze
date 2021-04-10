@@ -1,0 +1,186 @@
+[gd_scene load_steps=27 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Enemy/Enemies.gd" type="Script" id=2]
+[ext_resource path="res://Player/Blaster.tscn" type="PackedScene" id=3]
+[ext_resource path="res://UI/InputRemapMenu.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Maze/Maze.gd" type="Script" id=5]
+[ext_resource path="res://MiniMap/MiniMap.gd" type="Script" id=6]
+[ext_resource path="res://Assets/marker.png" type="Texture" id=7]
+[ext_resource path="res://Assets/muzzleflash.obj" type="ArrayMesh" id=8]
+[ext_resource path="res://Player/Muzzle.tres" type="Material" id=9]
+[ext_resource path="res://Player/Flash.gd" type="Script" id=10]
+[ext_resource path="res://Assets/Materials/Tiles089_1K_Color.jpg" type="Texture" id=11]
+[ext_resource path="res://Assets/Materials/Tiles089_1K_Roughness.jpg" type="Texture" id=12]
+[ext_resource path="res://Assets/Materials/Tiles089_1K_Normal.jpg" type="Texture" id=13]
+[ext_resource path="res://Assets/Key.wav" type="AudioStream" id=14]
+[ext_resource path="res://Assets/Zombie.wav" type="AudioStream" id=15]
+[ext_resource path="res://Assets/ZombieScreech.wav" type="AudioStream" id=16]
+[ext_resource path="res://Assets/GUN.wav" type="AudioStream" id=17]
+[ext_resource path="res://Assets/MAZE.ogg" type="AudioStream" id=18]
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 0.5
+height = 1.5
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.5, 0.1, 0.5 )
+
+[sub_resource type="PlaneMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+params_line_width = 0.1
+params_point_size = 0.1
+albedo_color = Color( 0.87451, 0.25098, 0.25098, 1 )
+albedo_texture = ExtResource( 11 )
+roughness_texture = ExtResource( 12 )
+normal_enabled = true
+normal_scale = 0.0
+normal_texture = ExtResource( 13 )
+
+[sub_resource type="BoxShape" id=7]
+
+[sub_resource type="PlaneMesh" id=5]
+
+[sub_resource type="SpatialMaterial" id=6]
+params_line_width = 0.1
+albedo_color = Color( 0.470588, 0.207843, 0.207843, 1 )
+albedo_texture = ExtResource( 12 )
+
+[sub_resource type="BoxShape" id=8]
+
+[node name="Game" type="Spatial"]
+
+[node name="Maze" type="Spatial" parent="."]
+script = ExtResource( 5 )
+
+[node name="Enemies" type="Spatial" parent="Maze"]
+script = ExtResource( 2 )
+
+[node name="Player" type="KinematicBody" parent="."]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 1, 1, 1 )
+script = ExtResource( 1 )
+
+[node name="Body" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, 1.3, 0 )
+shape = SubResource( 1 )
+
+[node name="Feet" type="CollisionShape" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0 )
+shape = SubResource( 2 )
+
+[node name="Pivot" type="Spatial" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0 )
+
+[node name="Camera" type="Camera" parent="Player/Pivot"]
+current = true
+
+[node name="Blaster" parent="Player/Pivot" instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0.3, -0.4, -1 )
+
+[node name="Flash" type="Spatial" parent="Player/Pivot/Blaster"]
+visible = false
+script = ExtResource( 10 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Player/Pivot/Blaster/Flash"]
+transform = Transform( -0.4, 0, -1.30337e-07, 0, 0.4, 0, 1.30337e-07, 0, -0.4, -0.131588, 0.0517986, 0.752298 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 9 )
+material/1 = ExtResource( 9 )
+material/2 = ExtResource( 9 )
+
+[node name="OmniLight" type="OmniLight" parent="Player/Pivot/Blaster/Flash"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.167, 0.15032, 0.571 )
+light_color = Color( 1, 0.92549, 0.576471, 1 )
+light_energy = 100.0
+omni_range = 3.0
+omni_attenuation = 9.18957
+
+[node name="Timer" type="Timer" parent="Player/Pivot/Blaster/Flash"]
+wait_time = 0.1
+one_shot = true
+
+[node name="RayCast" type="RayCast" parent="Player/Pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0, -0.576538 )
+enabled = true
+cast_to = Vector3( 0, 0, -30 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VP" type="Control" parent="UI"]
+margin_left = 824.0
+margin_right = 1024.0
+margin_bottom = 200.0
+rect_clip_content = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="UI/VP"]
+margin_right = 200.0
+margin_bottom = 200.0
+color = Color( 0, 0, 0, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Map_Container" type="Node2D" parent="UI/VP"]
+position = Vector2( 100, 100 )
+
+[node name="MiniMap" type="Node2D" parent="UI/VP/Map_Container"]
+position = Vector2( -100, -100 )
+scale = Vector2( 0.25, 0.25 )
+script = ExtResource( 6 )
+
+[node name="Marker" type="Sprite" parent="UI/VP"]
+position = Vector2( 100, 100 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 7 )
+
+[node name="Menu" parent="UI" instance=ExtResource( 4 )]
+pause_mode = 2
+visible = false
+
+[node name="Ceiling" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Ceiling"]
+transform = Transform( 56.0609, 0, 0, 0, -0.999889, 0.747725, 0, -0.0148871, -50.2208, -0.151072, 3.81857, 0.161362 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Ceiling"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.722, 0 )
+shape = SubResource( 7 )
+disabled = true
+
+[node name="StaticBody" type="StaticBody" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
+transform = Transform( 50, 0, 0, 0, 1, 0, 0, 0, 50, 0, 0.186534, 0 )
+mesh = SubResource( 5 )
+material/0 = SubResource( 6 )
+
+[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -24.0097, 0 )
+shape = SubResource( 8 )
+disabled = true
+
+[node name="Key" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+
+[node name="Zombie" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+
+[node name="ZombieScreech" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
+
+[node name="GUN" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -8.077
+pitch_scale = 1.43
+
+[node name="MAZE" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -9.087
+autoplay = true
+[connection signal="timeout" from="Player/Pivot/Blaster/Flash/Timer" to="Player/Pivot/Blaster/Flash" method="_on_Timer_timeout"]

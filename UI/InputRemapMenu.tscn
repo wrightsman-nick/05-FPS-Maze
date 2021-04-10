@@ -1,0 +1,166 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/ActionRemapButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/InputRemapMenu.gd" type="Script" id=2]
+
+[sub_resource type="ButtonGroup" id=1]
+
+[node name="InputRemapMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.752941 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Instructions" type="Label" parent="."]
+anchor_right = 1.0
+margin_top = 24.0
+margin_bottom = 55.0
+text = "Click on a button to reassign its action key."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RemapButtonGroup" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -144.0
+margin_right = 160.0
+margin_bottom = 144.0
+disabled = true
+group = SubResource( 1 )
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ActionsList" type="VBoxContainer" parent="RemapButtonGroup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -140.0
+margin_right = 160.0
+margin_bottom = 140.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="HBoxContainer" parent="RemapButtonGroup/ActionsList"]
+margin_right = 320.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionName" type="Label" parent="RemapButtonGroup/ActionsList/Left"]
+margin_right = 158.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Move Left"
+align = 1
+valign = 1
+
+[node name="RemapButton" parent="RemapButtonGroup/ActionsList/Left" instance=ExtResource( 1 )]
+margin_left = 162.0
+margin_right = 320.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+group = SubResource( 1 )
+action = "left"
+
+[node name="Right" type="HBoxContainer" parent="RemapButtonGroup/ActionsList"]
+margin_top = 71.0
+margin_right = 320.0
+margin_bottom = 138.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionName" type="Label" parent="RemapButtonGroup/ActionsList/Right"]
+margin_right = 158.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Move Right"
+align = 1
+valign = 1
+
+[node name="RemapButton" parent="RemapButtonGroup/ActionsList/Right" instance=ExtResource( 1 )]
+margin_left = 162.0
+margin_right = 320.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+group = SubResource( 1 )
+action = "right"
+
+[node name="Forward" type="HBoxContainer" parent="RemapButtonGroup/ActionsList"]
+margin_top = 142.0
+margin_right = 320.0
+margin_bottom = 209.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionName" type="Label" parent="RemapButtonGroup/ActionsList/Forward"]
+margin_right = 158.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Forward"
+align = 1
+valign = 1
+
+[node name="RemapButton" parent="RemapButtonGroup/ActionsList/Forward" instance=ExtResource( 1 )]
+margin_left = 162.0
+margin_right = 320.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+group = SubResource( 1 )
+action = "forward"
+
+[node name="Back" type="HBoxContainer" parent="RemapButtonGroup/ActionsList"]
+margin_top = 213.0
+margin_right = 320.0
+margin_bottom = 280.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ActionName" type="Label" parent="RemapButtonGroup/ActionsList/Back"]
+margin_right = 158.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Back"
+align = 1
+valign = 1
+
+[node name="RemapButton" parent="RemapButtonGroup/ActionsList/Back" instance=ExtResource( 1 )]
+margin_left = 162.0
+margin_right = 320.0
+margin_bottom = 67.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+group = SubResource( 1 )
+action = "back"
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 512.0
+margin_top = 500.0
+margin_right = 612.0
+margin_bottom = 540.0
+text = "Quit"
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
