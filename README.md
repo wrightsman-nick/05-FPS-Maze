@@ -2,7 +2,7 @@
 First Person Maze for C220
 10 April 2021
 # Implementation
-Procedurally Generated Maze, Music, SFX, Materials, Win Screen, Lose Screen, Button Remapping, Item Interaction
+Procedurally Generated Maze, Music, Enemy, SFX, Materials, Win Screen, Lose Screen, Button Remapping, In-Game Menu, Item Interaction
 Built Using Godot Engine 3.2.3
 # References
 Assets from www.kenney.nl
